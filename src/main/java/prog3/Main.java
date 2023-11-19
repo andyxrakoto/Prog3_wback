@@ -1,23 +1,15 @@
 package prog3;
 
-import org.springframework.context.annotation.Configuration;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-@Configuration
 public class Main {
     public static void main(String[] args) throws Exception {
+        String jdbcUrl = System.getenv("JDBC_URL");
+        String jdbcUser = System.getenv("JDBC_USER");
+        String jdbcPassword = System.getenv("JDBC_PASSWORD");
 
-        System.setProperty("JDBC_URL", "jdbc:postgresql://localhost:5432/library_management");
-        System.setProperty("JDBC_USER", "prog_admin");
-        System.setProperty("JDBC_PASSWORD", "123456");
-
-        Connection connection = DriverManager.getConnection(
-                System.getProperty("JDBC_URL"),
-                System.getProperty("JDBC_USER"),
-                System.getProperty("JDBC_PASSWORD")
-        );
+        Connection connection = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
 
         if (!connection.isClosed()) {
             System.out.println("Connection established");
