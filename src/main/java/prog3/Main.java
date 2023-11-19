@@ -15,7 +15,8 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        try (Connection connection = DriverManager.getConnection("jdbc:postgres://localhost:5432/library_management", "prog_admin", "123456")) {
+        try (Connection connection = DriverManager.getConnection("JDBC_URL", "JDBC_USER",
+                "JDBC_PASSWORD")) {
 
             BookCrudOperations bookCrudOperations = new BookCrudOperations(connection);
             List<Book> booksToSave = Arrays.asList(
