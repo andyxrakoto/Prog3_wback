@@ -21,7 +21,7 @@ public class BookCrudOperations implements CrudOperations<Book> {
             while (resultSet.next()) {
                 int isbn = resultSet.getInt("isbn");
                 String title = resultSet.getString("title");
-                String author = resultSet.getString("author");
+                int author = resultSet.getInt("author");
 
                 Book book = new Book(isbn, title, author);
                 books.add(book);
@@ -40,7 +40,7 @@ public class BookCrudOperations implements CrudOperations<Book> {
             for (Book book : toSave) {
                 preparedStatement.setInt(1, book.getIsbn());
                 preparedStatement.setString(2, book.getTitle());
-                preparedStatement.setString(3, book.getAuthor());
+                preparedStatement.setInt(3, book.getAuthor());
                 preparedStatement.addBatch();
             }
 
@@ -57,7 +57,7 @@ public class BookCrudOperations implements CrudOperations<Book> {
         try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO book VALUES (?, ?, ?)")) {
             preparedStatement.setInt(1, toSave.getIsbn());
             preparedStatement.setString(2, toSave.getTitle());
-            preparedStatement.setString(3, toSave.getAuthor());
+            preparedStatement.setInt(3, toSave.getAuthor());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("ERROR");
